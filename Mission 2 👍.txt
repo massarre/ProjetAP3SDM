@@ -3,10 +3,12 @@ Créer des VLANS de même nom et numéro sur tous les commutateurs.
 
 
 # Liaison SWT-16 (Principal) vers SWT-04
-interface FastEthernet 2/0/1
-switchport mode trunk
-switchport trunk allowed vlan 100,200,300,400
- STP 
+Configuration du mode trunk  
+  interface FastEthernet 2/0/1
+  switchport mode trunk
+  switchport trunk allowed vlan 100,200,300,400
+
+ Configuration du protocole STP (Spanning Tree Protocole)
 spanning-tree mode rapid-pvst
 spanning-tree vlan 1,100,200,300,400 priority 0
 Désactivation de STP sur les ports vers les terminaux (pas nécessaire ! seul shutdown suffit) pareil pour tous les commutateurs
@@ -15,22 +17,27 @@ Désactivation de STP sur les ports vers les terminaux (pas nécessaire ! seul s
  spanning-tree bpduguard enable
 
 
-# SWT-04 vers SWT-16
+        # SWT-04 vers SWT-16
+
+Configuration du mode trunk  
  interface FastEthernet 0/1
  switchport mode trunk
  switchport trunk allowed vlan 100,200,300,400
-STP
-spanning-tree mode rapid-pvst
-spanning-tree vlan 1,100,200,300,400 priority 4096
+
+Configuration du protocole STP (Spanning Tree Protocole)
+  spanning-tree mode rapid-pvst
+  spanning-tree vlan 1,100,200,300,400 priority 4096
 
 
-# SWT-11 vers SWT-04 (vice versa) 
- interface FastEthernet 0/1
- switchport mode trunk
- switchport trunk allowed vlan 100,200,300,400
-STP
-spanning-tree mode rapid-pvst
-spanning-tree vlan 1,100,200,300,400 priority 8192
+        # SWT-11 vers SWT-04 (vice versa) 
+Configuration du mode trunk         
+  interface FastEthernet 0/1
+  switchport mode trunk
+  switchport trunk allowed vlan 100,200,300,400
+
+Configuration du protocole STP (Spanning Tree Protocole)
+  spanning-tree mode rapid-pvst
+  spanning-tree vlan 1,100,200,300,400 priority 8192
 
 
 Liaison vers WiFi !!!!
@@ -39,14 +46,7 @@ Liaison vers WiFi !!!!
  switchport access vlan (numerp vlan du wifi)
 
 
-
-
 Liaison vers le serveur en mode ACCÈS !!!!
-
-
-
-
-_________________
 
 
 !!!!!!! Donc il faut enlever les liens d'agrégation !!!!!
