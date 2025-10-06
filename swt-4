@@ -216,3 +216,30 @@ line vty 5 15
  login
 !
   
+     
+
+                                      Note:
+
+                                      1. Configuration système
+! Définir le nom du switch
+Switch(config)# hostname Swt-4
+
+! Mot de passe enable secret
+Switch(config)# enable secret AP3SDM
+
+! Services
+
+
+Interface FastEthernet0/1 (ajoutée à l’agrégat)
+Switch(config)# interface fastEthernet 0/1
+Switch(config-if)# switchport trunk allowed vlan 100,200,300,400
+Switch(config-if)# switchport mode trunk
+
+(Les interfaces Fa0/2 à Fa0/12 n’ont pas de commandes particulières.)
+
+6. Sécurité et accès
+Ligne console
+Switch(config)# line console 0
+Switch(config-line)# password AP3SDM
+Switch(config-line)# login
+
