@@ -1,0 +1,245 @@
+Swt-04#
+*Mar  1 00:29:21.901: %SYS-5-CONFIG_I: Configured from console by consoleshow run
+Building configuration...
+
+Current configuration : 3246 bytes
+!
+version 12.2
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname Swt-04
+!
+boot-start-marker
+boot-end-marker
+!
+enable secret 5 $1$WPIz$UtRdwHDQ3fz6ESOibED400
+!
+!
+!
+no aaa new-model
+system mtu routing 1500
+!
+!
+!
+!
+crypto pki trustpoint TP-self-signed-3215545856
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-3215545856
+ revocation-check none
+ rsakeypair TP-self-signed-3215545856
+!
+!
+crypto pki certificate chain TP-self-signed-3215545856
+ certificate self-signed 01
+  3082023F 308201A8 A0030201 02020101 300D0609 2A864886 F70D0101 04050030
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274
+  69666963 6174652D 33323135 35343538 3536301E 170D3933 30333031 30303031
+  31315A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D33 32313535
+  34353835 3630819F 300D0609 2A864886 F70D0101 01050003 818D0030 81890281
+  8100D3BE 1ABD78E8 C15FFD38 9945D56A 45300B32 9DB7BEC4 447C67E8 6AC1C290
+  E3DED544 64E0A01B 00B4C01D EDD79DF2 A84DFB18 13013A6D E4CCFB92 4553FAC8
+  D078D74B 2CB8B7E5 912078BC BA687568 7B057284 37F7CC8C F491B1A2 A5352B3A
+  71141B03 6BF04A6F 8199B090 2A8668D2 AE3C6FE0 DCB5E40F 16017049 3A2161AF
+  77430203 010001A3 67306530 0F060355 1D130101 FF040530 030101FF 30120603
+  551D1104 0B300982 07537769 7463682E 301F0603 551D2304 18301680 14DD7DE1
+  4D0F810F AF4D214C B254DA67 85803FC4 68301D06 03551D0E 04160414 DD7DE14D
+  0F810FAF 4D214CB2 54DA6785 803FC468 300D0609 2A864886 F70D0101 04050003
+  81810023 34B25FEF 5ECA969E 9250EE59 DA029E6C 6698409B 44145A0D 97A0FF89
+  394661D3 E5A23392 619CAB73 CA6C5249 CF8F3301 173CB838 DE5702CB 6C30F7E5
+  30CD99E5 F92B89FD 33EEEB2F 9FEB44B8 90C30B13 0C2EDCCC 505A3E92 F2780AB1
+  663CEA1A 4FD55687 466F0A11 030EA2C4 B4708075 97EB6802 F8CCB4BC AA8B9454 4B4E0E
+  quit
+!
+!
+!
+!
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+spanning-tree vlan 1,100,200,300,400 priority 8192
+!
+vlan internal allocation policy ascending
+!
+!
+!
+!
+interface FastEthernet0/1
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 100,200,300,400
+ switchport mode trunk
+
+Swt-04#show run
+Building configuration...
+
+Current configuration : 3246 bytes
+!
+version 12.2
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname Swt-04
+!
+boot-start-marker
+boot-end-marker
+!
+enable secret 5 $1$WPIz$UtRdwHDQ3fz6ESOibED400
+!
+!
+!
+no aaa new-model
+system mtu routing 1500
+!
+!
+!
+!
+crypto pki trustpoint TP-self-signed-3215545856
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-3215545856
+ revocation-check none
+ rsakeypair TP-self-signed-3215545856
+!
+!
+crypto pki certificate chain TP-self-signed-3215545856
+ certificate self-signed 01
+  3082023F 308201A8 A0030201 02020101 300D0609 2A864886 F70D0101 04050030
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274
+  69666963 6174652D 33323135 35343538 3536301E 170D3933 30333031 30303031
+  31315A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D33 32313535
+  34353835 3630819F 300D0609 2A864886 F70D0101 01050003 818D0030 81890281
+  8100D3BE 1ABD78E8 C15FFD38 9945D56A 45300B32 9DB7BEC4 447C67E8 6AC1C290
+  E3DED544 64E0A01B 00B4C01D EDD79DF2 A84DFB18 13013A6D E4CCFB92 4553FAC8
+  D078D74B 2CB8B7E5 912078BC BA687568 7B057284 37F7CC8C F491B1A2 A5352B3A
+  71141B03 6BF04A6F 8199B090 2A8668D2 AE3C6FE0 DCB5E40F 16017049 3A2161AF
+  77430203 010001A3 67306530 0F060355 1D130101 FF040530 030101FF 30120603
+  551D1104 0B300982 07537769 7463682E 301F0603 551D2304 18301680 14DD7DE1
+  4D0F810F AF4D214C B254DA67 85803FC4 68301D06 03551D0E 04160414 DD7DE14D
+  0F810FAF 4D214CB2 54DA6785 803FC468 300D0609 2A864886 F70D0101 04050003
+  81810023 34B25FEF 5ECA969E 9250EE59 DA029E6C 6698409B 44145A0D 97A0FF89
+  394661D3 E5A23392 619CAB73 CA6C5249 CF8F3301 173CB838 DE5702CB 6C30F7E5
+  30CD99E5 F92B89FD 33EEEB2F 9FEB44B8 90C30B13 0C2EDCCC 505A3E92 F2780AB1
+  663CEA1A 4FD55687 466F0A11 030EA2C4 B4708075 97EB6802 F8CCB4BC AA8B9454 4B4E0E
+  quit
+!
+!
+!
+!
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+spanning-tree vlan 1,100,200,300,400 priority 8192
+!
+vlan internal allocation policy ascending
+!
+!
+!
+!
+interface FastEthernet0/1
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 100,200,300,400
+ switchport mode trunk
+!
+interface FastEthernet0/2
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 100,200,300,400
+ switchport mode trunk
+!
+interface FastEthernet0/3
+!
+interface FastEthernet0/4
+!
+interface FastEthernet0/5
+!
+interface FastEthernet0/6
+!
+interface FastEthernet0/7
+!
+interface FastEthernet0/8
+!
+interface FastEthernet0/9
+!
+interface FastEthernet0/10
+!
+interface FastEthernet0/11
+!
+interface FastEthernet0/12
+!
+interface FastEthernet0/13
+!
+interface FastEthernet0/14
+!
+interface FastEthernet0/15
+!
+interface FastEthernet0/16
+!
+interface FastEthernet0/17
+!
+interface FastEthernet0/18
+!
+interface FastEthernet0/19
+!
+interface FastEthernet0/20
+!
+interface FastEthernet0/21
+!
+interface FastEthernet0/22
+!
+interface FastEthernet0/23
+!
+interface FastEthernet0/24
+!
+interface GigabitEthernet0/1
+!
+interface GigabitEthernet0/2
+!
+interface Vlan1
+ no ip address
+!
+ip classless
+ip http server
+ip http secure-server
+!
+!
+!
+!
+!
+line con 0
+ password AP3SDM
+ login
+line vty 0 4
+ login
+line vty 5 15
+ login
+!
+  
+     
+
+                                      Note:
+
+                                      1. Configuration système
+! Définir le nom du switch
+Switch(config)# hostname Swt-4
+
+! Mot de passe enable secret
+Switch(config)# enable secret AP3SDM
+
+! Services
+
+
+Interface FastEthernet0/1 (ajoutée à l’agrégat)
+Switch(config)# interface fastEthernet 0/1
+Switch(config-if)# switchport trunk allowed vlan 100,200,300,400
+Switch(config-if)# switchport mode trunk
+
+(Les interfaces Fa0/2 à Fa0/12 n’ont pas de commandes particulières.)
+
+6. Sécurité et accès
+Ligne console
+Switch(config)# line console 0
+Switch(config-line)# password AP3SDM
+Switch(config-line)# login
+
