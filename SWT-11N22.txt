@@ -1,0 +1,73 @@
+Building configuration...
+
+Current configuration : 1045 bytes
+!
+version 12.1
+no service pad
+service timestamps debug uptime
+service timestamps log uptime
+no service password-encryption
+!
+hostname swt-04N22
+!
+no logging console
+enable secret 5 $1$kItE$1s3PkkP.CA2eywz6e9n6P.
+!
+ip subnet-zero
+!
+!
+spanning-tree mode pvst
+no spanning-tree optimize bpdu transmission
+spanning-tree extend system-id
+!
+!
+interface Port-channel1
+ description LAG vers SWT-04
+ switchport mode trunk
+!
+interface FastEthernet0/1
+ switchport trunk allowed vlan 100,200,300,400
+ switchport mode trunk
+ channel-group 1 mode active
+!
+interface FastEthernet0/2
+ channel-group 1 mode active
+!
+interface FastEthernet0/3
+!
+interface FastEthernet0/4
+!
+interface FastEthernet0/5
+!
+interface FastEthernet0/6
+!
+interface FastEthernet0/7
+!
+interface FastEthernet0/8
+!
+interface FastEthernet0/9
+!
+interface FastEthernet0/10
+!
+interface FastEthernet0/11
+!
+interface FastEthernet0/12
+!
+interface Vlan1
+ no ip address
+ no ip route-cache
+ shutdown
+!
+ip http server
+!
+!
+line con 0
+ password AP3SDM
+ login
+line vty 0 4
+ login
+line vty 5 15
+ login
+!
+end
+
