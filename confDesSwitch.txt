@@ -1,0 +1,113 @@
+Conf des SWITCHES👍
+
+Créer des VLANS de même nom et numéro sur tous les commutateurs. 
+Configuration du protocole STP (Spanning tree protocole)
+Configuration du protocole LACP
+
+Configuration du protocole STP (Spanning tree protocole)
+
+# Liaison SWT-16 (Principal) vers SWT-04
+ STP 
+spanning-tree mode rapid-pvst
+spanning-tree vlan 1,100,200,300,400 priority 0
+Désactivation de STP sur les ports vers les terminaux (pas nécessaire ! seul shutdown suffit) pareil pour tous les commutateurs
+
+# SWT-04 vers SWT-16
+STP
+spanning-tree mode rapid-pvst
+spanning-tree vlan 1,100,200,300,400 priority 4096
+
+# SWT-11 vers SWT-04 (vice versa) 
+STP
+spanning-tree mode rapid-pvst
+spanning-tree vlan 1,100,200,300,400 priority 8192
+
+Liaison vers WiFi !!!!
+ interface FastEthernet 0/3
+ switchport mode access
+ switchport access vlan (numéro vlan du wifi)
+  Agrégation des liens
+SWT-04 et SWT-16
+Sur le switch-16
+interface range fa2/0/1 - 2
+channel-group 1 mode active
+exit
+interface Port-channel1
+switchport trunk encapsulation dot1q 
+switchport mode trunk 
+switchport trunk allowed vlan 100,200,300,400
+no shutdown
+
+Sur le switch-04
+Vers swt-16
+interface range fa0/1 - 2
+channel-group 1 mode active
+exit
+interface Port-channel1
+switchporttrunk encapsulation dot1q 
+switchport mode trunk 
+switchport trunk allowed vlan 100,200,300,400
+no shutdown
+
+vers swt-11
+interface range fa0/3 - 4
+channel-group 2 mode active
+exit
+interface Port-channel2
+switchport trunk encapsulation dot1q 
+switchport mode trunk 
+switchport trunk allowed vlan 100,200,300,400
+no shutdown
+
+SWT-04 et SWT-11
+Sur le switch-11
+interface range fa2/0/3 - 4
+channel-group 2 mode active
+exit
+interface Port-channel2
+switchport mode trunk 
+switchport trunk allowed vlan 100,200,300,400
+no shutdown
+
+Sur le switch-04
+interface range fa0/3 - 4
+Port-channel2
+exit
+interface Port-channel2
+switchport mode trunk
+switchport trunk allowed vlan 100,200,300,400
+no shutdown
+channel-group 2 mode active
+no shutdown
+
+
+
+
+
+Création et configuration (IP)de vlan
+Vlan 100
+name Filare
+exit
+interface vlan 100
+ip address 10.1.1.254 255.255.255.0
+exit
+Vlan 200
+name Serveur
+exit
+interface vlan 200
+ip address 10.2.2.254 255.255.255.0
+exit
+Vlan 300
+name wifi
+exit
+interface vlan 300
+ip address 10.3.3.254 255.255.255.0
+exit
+Vlan 400
+name Partenaire
+exit
+interface vlan 400
+ip address 10.4.4.254 255.255.255.0
+exit
+
+
