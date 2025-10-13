@@ -1,41 +1,77 @@
+SWT-04#show running-config
 Building configuration...
 
-Current configuration : 1045 bytes
+Current configuration : 2456 bytes
 !
-version 12.1
+version 12.2
 no service pad
-service timestamps debug uptime
-service timestamps log uptime
+service timestamps debug datetime msec
+service timestamps log datetime msec
 no service password-encryption
 !
-hostname swt-04N22
+hostname Switch
+!
+boot-start-marker
+boot-end-marker
 !
 no logging console
-enable secret 5 $1$kItE$1s3PkkP.CA2eywz6e9n6P.
-!
-ip subnet-zero
+enable secret 5 $1$U91N$Nf8U2R/sZWiWV5b4tw5.d.
 !
 !
-spanning-tree mode pvst
-no spanning-tree optimize bpdu transmission
+!
+no aaa new-model
+system mtu routing 1500
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode rapid-pvst
 spanning-tree extend system-id
+spanning-tree vlan 1,100,200,300,400 priority 4096
+!
+vlan internal allocation policy ascending
+!
+!
 !
 !
 interface Port-channel1
- description LAG vers SWT-04
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 100,200,300,400
+ switchport mode trunk
+!
+interface Port-channel2
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 100,200,300,400
  switchport mode trunk
 !
 interface FastEthernet0/1
+ switchport trunk encapsulation dot1q
  switchport trunk allowed vlan 100,200,300,400
  switchport mode trunk
  channel-group 1 mode active
 !
 interface FastEthernet0/2
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 100,200,300,400
+ switchport mode trunk
  channel-group 1 mode active
 !
 interface FastEthernet0/3
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 100,200,300,400
+ switchport mode trunk
+ channel-group 2 mode active
 !
 interface FastEthernet0/4
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 100,200,300,400
+ switchport mode trunk
+ channel-group 2 mode active
 !
 interface FastEthernet0/5
 !
@@ -53,16 +89,59 @@ interface FastEthernet0/11
 !
 interface FastEthernet0/12
 !
+interface FastEthernet0/13
+!
+interface FastEthernet0/14
+!
+interface FastEthernet0/15
+!
+interface FastEthernet0/16
+!
+interface FastEthernet0/17
+!
+interface FastEthernet0/18
+!
+interface FastEthernet0/19
+!
+interface FastEthernet0/20
+!
+interface FastEthernet0/21
+!
+interface FastEthernet0/22
+!
+interface FastEthernet0/23
+!
+interface FastEthernet0/24
+!
+interface GigabitEthernet0/1
+!
+interface GigabitEthernet0/2
+!
 interface Vlan1
  no ip address
- no ip route-cache
- shutdown
 !
+interface Vlan100
+ ip address 10.1.1.254 255.255.255.0
+!
+interface Vlan200
+ ip address 10.2.2.254 255.255.255.0
+!
+interface Vlan300
+ ip address 10.3.3.254 255.255.255.0
+!
+interface Vlan400
+ ip address 10.4.4.254 255.255.255.0
+!
+ip classless
 ip http server
+ip http secure-server
+!
+!
+!
 !
 !
 line con 0
- password AP3SDM
+ password Cisco
  login
 line vty 0 4
  login
@@ -70,4 +149,28 @@ line vty 5 15
  login
 !
 end
+
+
+
+Protocole LACP
+SWT-04#show etherchannel summary
+Flags:  D - down        P - bundled in port-channel
+        I - stand-alone s - suspended
+        H - Hot-standby (LACP only)
+        R - Layer3      S - Layer2
+        U - in use      f - failed to allocate aggregator
+
+        M - not in use, minimum links not met
+        u - unsuitable for bundling
+        w - waiting to be aggregated
+        d - default port
+
+
+Number of channel-groups in use: 2
+Number of aggregators:           2
+
+Group  Port-channel  Protocol    Ports
+------+-------------+-----------+-----------------------------------------------
+1      Po1(SU)         LACP      Fa0/1(P)    Fa0/2(P)
+2      Po2(SU)         LACP      Fa0/3(P)    Fa0/4(P)
 
