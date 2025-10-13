@@ -1,3 +1,13 @@
+
+mots de passe : cisco
+swt-4 est relié à swt-11 par Fa0/3 et Fa0/4 - fa0/3   fa0/4
+swt-4 est relié à swt-16 par Fa0/1 et Fa2/0/1 - fa0/2   fa2/0/2
+Fa0/5 au borne wi-fi
+
+
+
+                             configuration
+
 Swt-04#
 *Mar  1 00:29:21.901: %SYS-5-CONFIG_I: Configured from console by consoleshow run
 Building configuration...

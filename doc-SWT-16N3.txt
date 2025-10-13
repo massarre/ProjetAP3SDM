@@ -1,3 +1,7 @@
+password: cisco
+le SWT-16 est relie  à SWT-04 fa2/0/1 et Fa0/1 - fa2/0/2 et fa0/2
+le port Fa2/0/10 est relier au routeur RTR port fa0/1 
+
 Current configuration : 1787 bytes
 !
 version 12.2
