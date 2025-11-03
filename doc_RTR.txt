@@ -1,0 +1,81 @@
+Router#show running-config
+Building configuration...
+
+Current configuration : 1095 bytes
+!
+version 12.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname Router
+!
+boot-start-marker
+boot-end-marker
+!
+!
+no aaa new-model
+!
+resource policy
+!
+ip cef
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface FastEthernet0/0
+ ip address dhcp
+ ip nat outside
+ ip virtual-reassembly
+ duplex auto
+ speed auto
+!
+interface FastEthernet0/1
+ ip address 10.50.50.1 255.255.255.0
+ ip nat inside
+ ip virtual-reassembly
+ duplex auto
+ speed auto
+!
+ip route 0.0.0.0 0.0.0.0 FastEthernet0/0
+ip route 10.1.1.0 255.255.255.248 10.50.50.10
+ip route 10.10.10.0 255.255.255.240 10.50.50.10
+ip route 10.20.20.0 255.255.255.224 10.50.50.10
+!
+!
+ip http server
+no ip http secure-server
+ip nat inside source list 1 interface FastEthernet0/0 overload
+!
+access-list 1 permit 10.1.1.0 0.0.0.7
+access-list 1 permit 10.10.10.0 0.0.0.15
+access-list 1 permit 10.20.20.0 0.0.0.31
+access-list 100 permit tcp any any eq www
+access-list 100 permit tcp any any eq 443
+!
+!
+!
+!
+!
+!
+control-plane
+!
+!
+!
+line con 0
+line aux 0
+line vty 0 4
+ login
+!
+scheduler allocate 20000 1000
+end
+

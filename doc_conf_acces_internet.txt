@@ -1,0 +1,69 @@
+Flux et accès Internet (Mission 4)
+
+Accès Internet autorisé pour :
+
+✅ VLAN FILAIRE (10.10.10.0/28) - Utilisateurs commerciaux
+
+✅ VLAN ADMIN (10.1.1.0/29) - Utilisateurs administration
+
+✅ VLAN SERVEUR (10.20.20.0/27) - Serveurs internes
+
+
+Le réseau entre le routeur et switch-16 est : 10.50.50.0 /24
+ 
+
+Branchement
+sur le routeur     : port 0/1 :  10.50.50.1   /24
+sur le switch-16   : port 2/0/10  10.50.50.10 /24 (créer un vlan 50 et y intégrer l'interface)
+
+______
+
+Sur le commutateur niveau 3 (SWT-16) :
+SWT-16(config)# ip routing
+SWT-16(config)# ip route 0.0.0.0 0.0.0.0 10.50.50.1
+
+______
+
+Sur le routeur (RTR) :
+
+Nat
+ip nat inside source list 1 interface FastEthernet0/0 overload
+
+Explication :
+Liste 1 : Définit quels réseaux peuvent faire du NAT
+Overload : PAT (Port Address Translation) - plusieurs IPs partagent une IP publique
+
+ACL
+access-list 1 permit 10.1.1.0 0.0.0.7
+access-list 1 permit 10.10.10.0 0.0.0.15
+access-list 1 permit 10.20.20.0 0.0.0.31
+ 
+Explication
+Réseau : 10.1.1.0/29 (VLAN ADMIN)
+Masque inverse : 0.0.0.7 = 255.255.255.248
+Plage autorisée : 10.1.1.0 - 10.1.1.7
+
+
+
+
+
+Routes statiques
+ip route 0.0.0.0 0.0.0.0 FastEthernet0/0    # Route par défaut → Internet
+
+
+RTR(config)# ip route 10.1.1.0 255.255.255.248 10.50.50.10 (SWT-16)
+RTR(config)# ip route 10.10.10.0 255.255.255.240 10.50.50.10 (SWT-16)
+RTR(config)# ip route 10.20.20.0 255.255.255.224 10.50.50.10 (SWT-16)
+
+note !
+ip port 2/0/10 (SWT-16) représente l'adresse IP de l'interface du commutateur niveau 3 (SWT-16) connectée au routeur RTR.
+
+
+RTR(config)# interface fa 0/0 (vers FAI)
+RTR(config-if)# ip nat outside
+RTR(config-if)# no shutdown
+
+RTR(config)# interface port 0/1 (vers SWT-16)
+RTR(config-if)# ip address 10.50.50.1 255.255.255.0
+RTR(config-if)# ip nat inside
+RTR(config-if)# no shutdown
