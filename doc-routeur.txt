@@ -1,0 +1,107 @@
+Informations : 
+Nom : TRsdmap3
+pro
+
+
+RTsdmap3#show run
+RTsdmap3#show running-config
+Building configuration...
+
+Current configuration : 1927 bytes
+!
+version 12.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname RTsdmap3
+!
+boot-start-marker
+boot-end-marker
+!
+no logging console
+enable secret 5 $1$5ZM1$XEWK5uAMsJWd9RRwUmJxy/
+!
+no aaa new-model
+!
+resource policy
+!
+ip cef
+!
+!
+!
+!
+ip domain name sdmap3.local
+ip ssh version 2
+!
+!
+!
+username admin privilege 15 secret 5 $1$F6NH$xURZ7FMB1mnIPtyo8hjgm.
+!
+!
+!
+!
+!
+!
+interface FastEthernet0/0
+ ip address dhcp
+ ip nat inside
+ ip virtual-reassembly
+ duplex auto
+ speed auto
+!
+interface FastEthernet0/1
+ ip address 10.1.1.1 255.255.255.248
+ ip access-group 100 out
+ ip nat inside
+ ip virtual-reassembly
+ speed 100
+ half-duplex
+!
+ip route 0.0.0.0 0.0.0.0 FastEthernet0/0
+ip route 10.10.10.0 255.255.255.240 10.1.1.2
+ip route 10.20.20.0 255.255.255.224 10.1.1.2
+!
+!
+ip http server
+no ip http secure-server
+ip nat inside source list 1 interface FastEthernet0/0 overload
+!
+access-list 1 permit 10.1.1.0 0.0.0.7
+access-list 1 permit 10.10.10.0 0.0.0.15
+access-list 1 permit 10.20.20.0 0.0.0.31
+access-list 100 permit udp 10.1.1.0 0.0.0.7 any eq domain
+access-list 100 permit udp 10.10.10.0 0.0.0.15 any eq domain
+access-list 100 permit udp 10.20.20.0 0.0.0.31 any eq domain
+access-list 100 permit tcp 10.1.1.0 0.0.0.7 any eq www
+access-list 100 permit tcp 10.1.1.0 0.0.0.7 any eq 443
+access-list 100 permit tcp 10.10.10.0 0.0.0.15 any eq www
+access-list 100 permit tcp 10.10.10.0 0.0.0.15 any eq 443
+access-list 100 permit tcp 10.20.20.0 0.0.0.31 any eq www
+access-list 100 permit tcp 10.20.20.0 0.0.0.31 any eq 443
+access-list 100 permit tcp any any established
+access-list 100 permit icmp any any echo-reply
+access-list 100 permit icmp any any time-exceeded
+access-list 100 permit icmp any any unreachable
+!
+!
+!
+!
+!
+!
+control-plane
+!
+!
+!
+line con 0
+ password cisco
+ login
+line aux 0
+line vty 0 4
+ login local
+ transport input ssh
+!
+scheduler allocate 20000 1000
+end
+
+RTsdmap3#
