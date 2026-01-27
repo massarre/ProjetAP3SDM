@@ -95,42 +95,4 @@ SWITCH-16 (SWT-16)
           (Serveurs)
           
           
-       !!!!!!! POUR AVOIR INTERNET !!!!!!! 
-        
-        
-        ! 1. Créer l'ACL 100 (améliorée avec DNS)
-RTsdmap3(config)# ip access-list extended 100
-
-! Autoriser DNS (essentiel)
-permit udp 10.1.1.0 0.0.0.7 any eq domain
-permit udp 10.10.10.0 0.0.0.15 any eq domain
-permit udp 10.20.20.0 0.0.0.31 any eq domain
-
-! Autoriser HTTP/HTTPS
-permit tcp 10.1.1.0 0.0.0.7 any eq www
-permit tcp 10.1.1.0 0.0.0.7 any eq 443
-permit tcp 10.10.10.0 0.0.0.15 any eq www
-permit tcp 10.10.10.0 0.0.0.15 any eq 443
-permit tcp 10.20.20.0 0.0.0.31 any eq www
-permit tcp 10.20.20.0 0.0.0.31 any eq 443
-
-! Autoriser le trafic de retour (established)
-RTR(config-ext-nacl)# permit tcp any any established
-
-! ICMP pour diagnostic (optionnel)
-permit icmp any any echo-reply
-permit icmp any any time-exceeded
-permit icmp any any unreachable
-
-! DENY ALL implicite (automatique)
-RTR(config-ext-nacl)# exit
-
-! 2. APPLIQUER sur l'interface INTERNE en SORTIE (interface connecté au switch)
-RTsdmap3(config)# interface port 0/1
-RTsdmap3(config-if)# ip access-group 100 out
-RTsdmap3(config-if)# exit
-
-
-
-  
-  
+    
