@@ -1,6 +1,10 @@
 Informations : 
 Nom : TRsdmap3
-pro
+Interfaces : fa0/0 : branché au FAI 
+             fa0/1 : lié avec le switch-16 : 10.1.1.1
+
+Acces console 
+ mdp : Cisco
 
 
 RTsdmap3#show run
@@ -45,7 +49,7 @@ username admin privilege 15 secret 5 $1$F6NH$xURZ7FMB1mnIPtyo8hjgm.
 !
 interface FastEthernet0/0
  ip address dhcp
- ip nat inside
+ ip nat Inside (a modifier, au lieu de Inside mais outside)
  ip virtual-reassembly
  duplex auto
  speed auto
@@ -70,15 +74,23 @@ ip nat inside source list 1 interface FastEthernet0/0 overload
 access-list 1 permit 10.1.1.0 0.0.0.7
 access-list 1 permit 10.10.10.0 0.0.0.15
 access-list 1 permit 10.20.20.0 0.0.0.31
+
+a revoir
 access-list 100 permit udp 10.1.1.0 0.0.0.7 any eq domain
 access-list 100 permit udp 10.10.10.0 0.0.0.15 any eq domain
 access-list 100 permit udp 10.20.20.0 0.0.0.31 any eq domain
+
+a modifier ou simplier 
+(access-list 100 permit tcp any any eq www
+access-list 100 permit tcp any any eq 443) 
 access-list 100 permit tcp 10.1.1.0 0.0.0.7 any eq www
 access-list 100 permit tcp 10.1.1.0 0.0.0.7 any eq 443
 access-list 100 permit tcp 10.10.10.0 0.0.0.15 any eq www
 access-list 100 permit tcp 10.10.10.0 0.0.0.15 any eq 443
 access-list 100 permit tcp 10.20.20.0 0.0.0.31 any eq www
 access-list 100 permit tcp 10.20.20.0 0.0.0.31 any eq 443
+
+a revoir
 access-list 100 permit tcp any any established
 access-list 100 permit icmp any any echo-reply
 access-list 100 permit icmp any any time-exceeded

@@ -1,0 +1,25 @@
+Un routeur cisco
+1 commutateur de couche 3
+2 commutateur de couche 2
+
+
+Câblage : 
+
+Routeur : 
+le port 0/0 est lié au FAI sur son port 0
+le port 0/1 est lié au switch-16
+
+Switch-16 (niveau 3)
+
+le port 2/0/10 est lié au routeur sur son port 0/1
+les ports 2/0/1 et 2/0/2 vont vers le switch-04 sur les ports 0/1 et 0/2
+
+Switch-04 (niveau 2)
+
+les ports 0/1 et 0/2 vont vers le switch-16 sur les ports 2/0/1 et 2/0/2
+les ports 0/3 et 0/4 vont vers le switch-11 sur les ports 0/3 et 0/4
+Le port 0/5 recoit le WIFI
+
+Switch-11 (niveau 3)
+
+les ports 0/3 et 0/4 vont vers le switch-04 sur les ports 0/3 et 0/4

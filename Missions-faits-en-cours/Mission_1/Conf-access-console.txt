@@ -1,3 +1,8 @@
+Configuration accès consoles des matériels et sécurité des ports 
+
+
+I_ Accès consoles des matériels 
+
 1- Etapes pour la sécurisation par mot de passe et conf SSH du routeur
 
 Router> enable
@@ -18,7 +23,7 @@ Définir un nom d’hôte et un domaine (obligatoire pour générer les clés RS
 Router> enable
 Router# configure terminal
 Router(config)# hostname RTsdmap3 
-RTsdmap3(config)# ip domain-name sdmap3.local
+R1(config)# ip domain-name sdmap3.local
 
 
 Créer un utilisateur avec mot de passe
@@ -39,16 +44,20 @@ How many bits in the modulus [512]: 2048
 Activer l’accès SSH sur les lignes VTY
 
 
-RTsdmap3(config)# line vty 0 4
-RTsdmap3(config-line)# transport input ssh
-RTsdmap3(config-line)# login local
-RTsdmap3(config-line)# exit
+R1(config)# line vty 0 4
+R1(config-line)# transport input ssh
+R1(config-line)# login local
+R1(config-line)# exit
 
 
 (Optionnel) Limiter la version SSH
  Pour plus de sécurité :
-RTsdmap3(config)# ip ssh version 2
+R1(config)# ip ssh version 2
 
 
+I_sécurité des ports 
 
+Désactiver tous les ports non utilisé en utilisant la commande suivante sur ceux concernés : 
+d'abord entrer dans le port : interface Fast Ethernet (numéro port)
+ensuite : No shutdown 
 

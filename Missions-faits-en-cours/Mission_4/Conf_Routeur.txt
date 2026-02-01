@@ -1,0 +1,25 @@
+! Interface LAN
+interface FastEthernet0/1
+ ip address 10.1.1.1 255.255.255.248
+ ip nat inside
+ speed 100
+ full-duplex
+
+! Interface Internet
+interface FastEthernet0/0
+ ip address dhcp
+ ip nat outside
+
+! Routes
+ip route 0.0.0.0 0.0.0.0 FastEthernet0/0
+ip route 10.10.10.0 255.255.255.240 10.1.1.2
+ip route 10.20.20.0 255.255.255.224 10.1.1.2
+
+! NAT
+ip nat inside source list 1 interface FastEthernet0/0 overload
+
+# Mise en œuvre de la translation 
+! ACL pour NAT
+access-list 1 permit 10.1.1.0 0.0.0.7
+access-list 1 permit 10.10.10.0 0.0.0.15
+access-list 1 permit 10.20.20.0 0.0.0.31

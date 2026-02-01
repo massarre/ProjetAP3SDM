@@ -1,9 +1,12 @@
-SWT-16#sho
-SWT-16#show run
+confswitchactuel
+
+
+
+SWT-16#show ru
 SWT-16#show running-config
 Building configuration...
 
-Current configuration : 2321 bytes
+Current configuration : 2717 bytes
 !
 version 12.2
 no service pad
@@ -17,13 +20,15 @@ boot-start-marker
 boot-end-marker
 !
 no logging console
-enable secret 5 $1$goN4$Tw6yxFXUwx1Y42HCfHIx70
+enable secret 5 $1$6QS3$G2bFov9M7yi1TOZPUlvS/0
 !
+username admin privilege 15 secret 5 $1$ZV3g$xvu6wwGIPQEacpyp7POuT.
 no aaa new-model
 switch 2 provision ws-c3750-24ts
 system mtu routing 1500
 ip subnet-zero
 ip routing
+ip domain-name sdmap3.local
 !
 !
 !
@@ -35,7 +40,7 @@ ip routing
 !
 spanning-tree mode rapid-pvst
 spanning-tree extend system-id
-spanning-tree vlan 1,10,20,30,40 priority 0
+spanning-tree vlan 10,20,30,40,99 priority 0
 !
 vlan internal allocation policy ascending
 !
@@ -43,18 +48,21 @@ vlan internal allocation policy ascending
 !
 interface Port-channel1
  switchport trunk encapsulation dot1q
- switchport trunk allowed vlan 10,20,30,40
+ switchport trunk native vlan 99
+ switchport trunk allowed vlan 10,20,30,40,99
  switchport mode trunk
 !
 interface FastEthernet2/0/1
  switchport trunk encapsulation dot1q
- switchport trunk allowed vlan 10,20,30,40
+ switchport trunk native vlan 99
+ switchport trunk allowed vlan 10,20,30,40,99
  switchport mode trunk
  channel-group 1 mode active
 !
 interface FastEthernet2/0/2
  switchport trunk encapsulation dot1q
- switchport trunk allowed vlan 10,20,30,40
+ switchport trunk native vlan 99
+ switchport trunk allowed vlan 10,20,30,40,99
  switchport mode trunk
  channel-group 1 mode active
 !
@@ -63,18 +71,25 @@ interface FastEthernet2/0/3
 interface FastEthernet2/0/4
 !
 interface FastEthernet2/0/5
+ description serveurproxmox
+ switchport access vlan 20
+ switchport mode access
 !
 interface FastEthernet2/0/6
 !
 interface FastEthernet2/0/7
+ switchport access vlan 20
+ switchport mode access
 !
 interface FastEthernet2/0/8
 !
 interface FastEthernet2/0/9
 !
 interface FastEthernet2/0/10
- switchport access vlan 50
+ switchport access vlan 99
  switchport mode access
+ speed 100
+ duplex full
 !
 interface FastEthernet2/0/11
 !
@@ -109,16 +124,16 @@ interface GigabitEthernet2/0/1
 interface GigabitEthernet2/0/2
 !
 interface Vlan1
- ip address 10.1.1.1 255.255.255.0
+ no ip address
 !
 interface Vlan10
- ip address 10.10.10.1 255.255.255.0
+ ip address 10.10.10.1 255.255.255.240
 !
 interface Vlan20
- ip address 10.20.20.1 255.255.255.0
+ ip address 10.20.20.1 255.255.255.224
 !
 interface Vlan30
- ip address 10.30.30.1 255.255.255.0
+ ip address 10.30.30.1 255.255.255.224
 !
 interface Vlan40
  ip address 10.40.40.1 255.255.255.0
@@ -126,9 +141,12 @@ interface Vlan40
 interface Vlan50
  ip address 10.50.50.10 255.255.255.0
 !
+interface Vlan99
+ description Liaison vers Routeur
+ ip address 10.1.1.2 255.255.255.248
+!
 ip classless
-ip route 0.0.0.0 0.0.0.0 10.50.50.10
-ip route 0.0.0.0 0.0.0.0 10.50.50.1
+ip route 0.0.0.0 0.0.0.0 10.1.1.1
 ip http server
 !
 !

@@ -1,0 +1,12 @@
+! Routage activé
+ip routing
+
+! Interface VLAN 99 vers routeur
+interface Vlan99
+ ip address 10.1.1.2 255.255.255.248
+
+
+# Routage statique 
+
+! Route par défaut
+ip route 0.0.0.0 0.0.0.0 10.1.1.1

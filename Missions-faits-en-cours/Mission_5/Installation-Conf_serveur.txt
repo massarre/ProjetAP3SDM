@@ -1,0 +1,9 @@
+Serveur
+
+OS : Ubuntu
+Nom : sdmap
+Login : sdmpap 
+mot de passe : sdmap
+
+
+ 
