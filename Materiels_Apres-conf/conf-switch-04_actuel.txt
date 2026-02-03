@@ -1,0 +1,190 @@
+SWT-04#sho run
+Building configuration...
+
+Current configuration : 4349 bytes
+!
+version 12.2
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname SWT-04
+!
+boot-start-marker
+boot-end-marker
+!
+no logging console
+enable secret 5 $1$Y4pW$HcFp.snsERtbFVpo0BPEm0
+!
+!
+!
+no aaa new-model
+system mtu routing 1500
+!
+!
+!
+!
+crypto pki trustpoint TP-self-signed-3215545856
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-3215545856
+ revocation-check none
+ rsakeypair TP-self-signed-3215545856
+!
+!
+crypto pki certificate chain TP-self-signed-3215545856
+ certificate self-signed 01
+  3082023F 308201A8 A0030201 02020101 300D0609 2A864886 F70D0101 04050030
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274
+  69666963 6174652D 33323135 35343538 3536301E 170D3933 30333031 30303031
+  30365A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D33 32313535
+  34353835 3630819F 300D0609 2A864886 F70D0101 01050003 818D0030 81890281
+  8100A0F3 6661BFE8 3995EE26 51CDD235 45019A32 54843297 3A4296EE C04ECFFA
+  82EFFD27 7145264F 7C6BCE1A CFE4039C 8385796F FFAC46CF E7CC6F62 987F24EA
+  6090AD72 35F6BCD2 C9649BE0 691C0BF8 D9BC8AC6 B5E9AFD1 3213C0FF F567D009
+  683E0D57 4BBDAD8B 780276EC 8D7E8568 BB98C0A5 94BCEDB1 7309B289 B8675793
+  FAD90203 010001A3 67306530 0F060355 1D130101 FF040530 030101FF 30120603
+  551D1104 0B300982 07535754 2D30342E 301F0603 551D2304 18301680 14B0C5BD
+  9F12CDB0 9A9E2FF4 7A25BEC8 C0C21667 E7301D06 03551D0E 04160414 B0C5BD9F
+  12CDB09A 9E2FF47A 25BEC8C0 C21667E7 300D0609 2A864886 F70D0101 04050003
+  8181007D 8A164668 D32A8B87 B7831DD7 8F8805BE 5C446494 F340DF8E 93D432CB
+  7E0B8AD7 29E5DA03 CE47BDE0 45DE8865 F5231BB3 6F841B60 FF6BD5E8 B6ED02F0
+  EDE1AA0C 896E8FEB 2B0FD68C 08CC9364 F66C6C5A 4D5EA034 33C56B42 EDF3AEDE
+  4C4380F4 6C288FCB 5F1E006E AA10DDDF 8816E247 48EE7831 B7A22A60 DCEF43B8 B75306
+  quit
+!
+!
+!
+!
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+spanning-tree vlan 10,20,30,40,99 priority 4096
+!
+vlan internal allocation policy ascending
+!
+!
+!
+!
+interface Port-channel1
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 99
+ switchport trunk allowed vlan 10,20,30,40,99
+ switchport mode trunk
+!
+interface Port-channel2
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 99
+ switchport trunk allowed vlan 10,20,30,40,99
+ switchport mode trunk
+!
+interface FastEthernet0/1
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 99
+ switchport trunk allowed vlan 10,20,30,40,99
+ switchport mode trunk
+ channel-group 1 mode active
+!
+interface FastEthernet0/2
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 99
+ switchport trunk allowed vlan 10,20,30,40,99
+ switchport mode trunk
+ channel-group 1 mode active
+!
+interface FastEthernet0/3
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 99
+ switchport trunk allowed vlan 10,20,30,40,99
+ switchport mode trunk
+ channel-group 2 mode active
+!
+interface FastEthernet0/4
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 99
+ switchport trunk allowed vlan 10,20,30,40,99
+ switchport mode trunk
+ channel-group 2 mode active
+!
+interface FastEthernet0/5
+!
+interface FastEthernet0/6
+!
+interface FastEthernet0/7
+!
+interface FastEthernet0/8
+!
+interface FastEthernet0/9
+!
+interface FastEthernet0/10
+!
+interface FastEthernet0/11
+!
+interface FastEthernet0/12
+!
+interface FastEthernet0/13
+!
+interface FastEthernet0/14
+!
+interface FastEthernet0/15
+!
+interface FastEthernet0/16
+!
+interface FastEthernet0/17
+!
+interface FastEthernet0/18
+!
+interface FastEthernet0/19
+!
+interface FastEthernet0/20
+!
+interface FastEthernet0/21
+!
+interface FastEthernet0/22
+!
+interface FastEthernet0/23
+!
+interface FastEthernet0/24
+!
+interface GigabitEthernet0/1
+!
+interface GigabitEthernet0/2
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan10
+ ip address 10.10.10.1 255.255.255.240
+!
+interface Vlan20
+ ip address 10.20.20.1 255.255.255.224
+!
+interface Vlan30
+ ip address 10.30.30.1 255.255.255.224
+!
+interface Vlan40
+ ip address 10.40.40.1 255.255.255.0
+!
+interface Vlan99
+ ip address 10.1.1.1 255.255.255.248
+!
+ip classless
+ip http server
+ip http secure-server
+!
+!
+!
+!
+!
+line con 0
+ password Cisco
+ login
+line vty 0 4
+ login
+line vty 5 15
+ login
+!
+end
+
+SWT-04#

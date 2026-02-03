@@ -3,17 +3,14 @@ Nom : TRsdmap3
 Interfaces : fa0/0 : branché au FAI 
              fa0/1 : lié avec le switch-16 : 10.1.1.1
 
-Acces console 
- mdp : Cisco
-
-
 RTsdmap3#show run
 RTsdmap3#show running-config
 Building configuration...
 
-Current configuration : 1927 bytes
+Current configuration : 1186 bytes
 !
 version 12.4
+service config
 service timestamps debug datetime msec
 service timestamps log datetime msec
 no service password-encryption
@@ -23,8 +20,7 @@ hostname RTsdmap3
 boot-start-marker
 boot-end-marker
 !
-no logging console
-enable secret 5 $1$5ZM1$XEWK5uAMsJWd9RRwUmJxy/
+enable secret 5 $1$O4GO$XOTmIJGrDLDkCziXPq3GW0
 !
 no aaa new-model
 !
@@ -40,7 +36,7 @@ ip ssh version 2
 !
 !
 !
-username admin privilege 15 secret 5 $1$F6NH$xURZ7FMB1mnIPtyo8hjgm.
+username sdmap3 privilege 15 secret 5 $1$29Dy$82cKtlKF/FLJOA5J0cU9v/
 !
 !
 !
@@ -49,18 +45,17 @@ username admin privilege 15 secret 5 $1$F6NH$xURZ7FMB1mnIPtyo8hjgm.
 !
 interface FastEthernet0/0
  ip address dhcp
- ip nat Inside (a modifier, au lieu de Inside mais outside)
+ ip nat outside
  ip virtual-reassembly
  duplex auto
  speed auto
 !
 interface FastEthernet0/1
  ip address 10.1.1.1 255.255.255.248
- ip access-group 100 out
  ip nat inside
  ip virtual-reassembly
  speed 100
- half-duplex
+ full-duplex
 !
 ip route 0.0.0.0 0.0.0.0 FastEthernet0/0
 ip route 10.10.10.0 255.255.255.240 10.1.1.2
@@ -74,27 +69,6 @@ ip nat inside source list 1 interface FastEthernet0/0 overload
 access-list 1 permit 10.1.1.0 0.0.0.7
 access-list 1 permit 10.10.10.0 0.0.0.15
 access-list 1 permit 10.20.20.0 0.0.0.31
-
-a revoir
-access-list 100 permit udp 10.1.1.0 0.0.0.7 any eq domain
-access-list 100 permit udp 10.10.10.0 0.0.0.15 any eq domain
-access-list 100 permit udp 10.20.20.0 0.0.0.31 any eq domain
-
-a modifier ou simplier 
-(access-list 100 permit tcp any any eq www
-access-list 100 permit tcp any any eq 443) 
-access-list 100 permit tcp 10.1.1.0 0.0.0.7 any eq www
-access-list 100 permit tcp 10.1.1.0 0.0.0.7 any eq 443
-access-list 100 permit tcp 10.10.10.0 0.0.0.15 any eq www
-access-list 100 permit tcp 10.10.10.0 0.0.0.15 any eq 443
-access-list 100 permit tcp 10.20.20.0 0.0.0.31 any eq www
-access-list 100 permit tcp 10.20.20.0 0.0.0.31 any eq 443
-
-a revoir
-access-list 100 permit tcp any any established
-access-list 100 permit icmp any any echo-reply
-access-list 100 permit icmp any any time-exceeded
-access-list 100 permit icmp any any unreachable
 !
 !
 !
