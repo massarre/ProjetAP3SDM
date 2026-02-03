@@ -6,6 +6,7 @@ Login : sdmpap
 mot de passe : sdmap
 
 VLAN Serveurs: 20
+Réseau : 10.20.20.0/27
 IP : 10.20.20.4
 Passerelle : 10.20.20.1
 DNS : 192.168.201.3, 192.168.201.4
