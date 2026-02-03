@@ -2,7 +2,7 @@ Serveur
 
 OS : Ubuntu
 Nom : sdmap
-Login : sdmpap 
+Login : sdmap 
 mot de passe : sdmap
 
 VLAN Serveurs: 20
